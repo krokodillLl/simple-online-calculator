@@ -13,6 +13,7 @@ public class Main {
         Server server = new Server(8080);
         server.setHandler(context);
         server.start();
+        System.out.println("the server is running");
         server.join();
     }
 }
