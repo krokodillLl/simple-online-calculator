@@ -7,20 +7,21 @@
 <body>
 
 <form action="onlineCalc" method="POST">
-    Number A: <input type="number" name="a">
+    Number A: <input type="text" name="a">
     <select name="operation">
         <option>&#x2B</option>
         <option>&#x2D</option>
         <option>&#x2A</option>
         <option>&#x2F</option>
     </select>
-    Number B: <input type="number" name="b">
+    Number B: <input type="text" name="b">
     <input type="submit" value="Calculate">
 </form>
 <p>A: ${a}</p>
 <p>Operation: ${operation}</p>
 <p>B: ${b}</p>
 <p>Result: ${Result}</p>
+<p>${message}</p>
 
 </body>
 </html>

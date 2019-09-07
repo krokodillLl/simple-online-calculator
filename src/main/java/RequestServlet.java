@@ -25,11 +25,7 @@ public class RequestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,
                          HttpServletResponse resp) throws ServletException, IOException {
         // Непосредственная работа с сервером
-        Map<String, Object> pageVariables = new HashMap<>();
-        pageVariables.putIfAbsent("Result", 0);
-        pageVariables.putIfAbsent("a", 0);
-        pageVariables.putIfAbsent("b", 0);
-        pageVariables.putIfAbsent("operation", 0);
+        Map<String, Object> pageVariables = createPageVariables(req);
         resp.getWriter().println(PageGenerator.instance().getPage("page.html", pageVariables));
         resp.setContentType("text/html;charset=utf-8");
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -46,6 +42,7 @@ public class RequestServlet extends HttpServlet {
 
     private  Map<String, Object> createPageVariables(HttpServletRequest req){
         // Заполнение полей
+        Map<String, Object> pageVariables = new HashMap<>();
         strA = req.getParameter("a");
         strB = req.getParameter("b");
         strOperation = req.getParameter("operation");
@@ -57,6 +54,7 @@ public class RequestServlet extends HttpServlet {
         }
         catch (Exception e) {
             error = true;
+            pageVariables.put("message", "Please enter numbers");
         }
         // Если все валидно, то логика
             if (!error) {
@@ -77,18 +75,23 @@ public class RequestServlet extends HttpServlet {
                         error = true;
                     }
                 }
+                pageVariables.put("a", doubleA);
+                pageVariables.put("b", doubleB);
+                pageVariables.put("operation", strOperation);
             }
 
-        Map<String, Object> pageVariables = new HashMap<>();
-        pageVariables.put("a", doubleA);
-        pageVariables.put("b", doubleB);
-        pageVariables.put("operation", strOperation);
         if(!error) {
             pageVariables.put("Result", doubleRes);
         }
         else {
             pageVariables.put("Result", res);
         }
+        pageVariables.putIfAbsent("Result", 0);
+        pageVariables.putIfAbsent("a", 0);
+        pageVariables.putIfAbsent("b", 0);
+        pageVariables.putIfAbsent("operation", 0);
+        pageVariables.putIfAbsent("message", "");
+
         return pageVariables;
     }
 }
