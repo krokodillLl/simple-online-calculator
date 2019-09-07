@@ -1,4 +1,4 @@
-package Logic;
+package Logics;
 
 import Exception.DivisionByZero;
 
@@ -16,12 +16,12 @@ public class MathOperation {
         return a * b;
     }
 
-    public static double Div(double a, double b) throws DivisionByZero {
+    public static double Div(double a, double b) throws ArithmeticException {
         if(b != 0.0) {
             return a / b;
         }
         else {
-            throw new DivisionByZero();
+            throw new ArithmeticException("Division by zero");
         }
     }
 

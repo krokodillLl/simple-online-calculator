@@ -1,4 +1,4 @@
-import Logic.MathOperation;
+import Logics.MathOperation;
 import Exception.DivisionByZero;
 import templater.PageGenerator;
 
@@ -72,8 +72,8 @@ public class RequestServlet extends HttpServlet {
                 if (strOperation.equals("/")) {
                     try {
                         doubleRes = MathOperation.Div(doubleA, doubleB);
-                    } catch (DivisionByZero byZero) {
-                        res = byZero.getMessage();
+                    } catch (ArithmeticException e) {
+                        res = e.getMessage();
                         error = true;
                     }
                 }
